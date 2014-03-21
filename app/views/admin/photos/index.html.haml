@@ -6,6 +6,7 @@
   %p There are no photos at this time.
   
 = render 'photo_grid', :photos => @photos
-  
-%p
-  = link_to 'Upload photos', new_admin_photo_path, :class => 'btn btn-primary'
+
+- if user_signed_in?
+  %p
+    = link_to 'Upload photos', new_admin_photo_path, :class => 'btn btn-primary'

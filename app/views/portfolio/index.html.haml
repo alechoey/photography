@@ -4,3 +4,7 @@
 = render 'admin/photos/photo_grid', :photos => @photos
 
 %p= paginate @photos if @photos.present?
+
+- if user_signed_in?
+  %p
+    = link_to 'Upload photos', new_admin_photo_path, :class => 'btn btn-primary'

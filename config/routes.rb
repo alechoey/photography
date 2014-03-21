@@ -15,6 +15,8 @@ Photography::Application.routes.draw do
   get '/contact' => 'welcome#contact', :as => :contact
 
   scope :admin do
+    root 'portfolio#index', :as => :admin_root
+    
     devise_for :users,
     :controllers => {
       :sessions => 'admin/sessions'
@@ -26,7 +28,6 @@ Photography::Application.routes.draw do
   end
 
   namespace :admin do
-    root :to => 'photos#index'
     resources :photos, :except => [:show, :edit]
     get '/posts/new', :as => :new_post
     get '/posts/:slug/edit' => 'posts#edit', :as => :edit_post

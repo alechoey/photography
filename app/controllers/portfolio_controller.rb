@@ -1,6 +1,6 @@
 class PortfolioController < ApplicationController
   def index
-    @photos = Photo
+    @photos = Photo.all
     @photos = @photos.get_portfolio_photos unless user_signed_in?
     @photos = @photos.page(params[:page])
   end
