@@ -1,6 +1,6 @@
 %h1 All Photos
 
-%p= paginate @photos
+%p= paginate @photos if @photos.present?
 
 - if @photos.blank?
   %p There are no photos at this time.

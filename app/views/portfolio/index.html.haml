@@ -3,4 +3,4 @@
   
 = render 'admin/photos/photo_grid', :photos => @photos
 
-%p= paginate @photos
+%p= paginate @photos if @photos.present?
