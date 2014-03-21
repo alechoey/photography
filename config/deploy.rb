@@ -1,4 +1,5 @@
 RAILS_ROOT = '/u/apps/photography/current'
+PID_PATH = '/u/apps/photography/shared/pids/unicorn.pid'
 
 set :application, 'photography'
 set :repo_url, 'git@github.com:alechoey/photography.git'
@@ -13,7 +14,7 @@ set :scm, :git
 # set :log_level, :debug
 # set :pty, true
 
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/paperclip/s3_credentials.yml}
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -27,7 +28,7 @@ namespace :deploy do
   desc 'Start application'
   task :start do
     on roles(:app), in: :sequence, wait: 10 do
-      puts capture("cd #{RAILS_ROOT} && UNICORN_WORKERS=3 bundle exec unicorn_rails \
+      execute("cd #{RAILS_ROOT} && UNICORN_WORKERS=3 bundle exec unicorn_rails \
       -c #{File.join(RAILS_ROOT, 'config/deploy/assets/unicorn.rb')} \
       -E production -D")
     end
@@ -38,6 +39,7 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
+      execute("kill -s USR2 `cat #{PID_PATH}`")
     end
   end
 
