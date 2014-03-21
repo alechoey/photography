@@ -1,0 +1,6 @@
+- if @photos.blank?
+  %p There are no photos at this time.
+  
+= render 'admin/photos/photo_grid', :photos => @photos
+
+%p= paginate @photos

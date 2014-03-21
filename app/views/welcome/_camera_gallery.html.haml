@@ -1,0 +1,3 @@
+.camera-wrap
+  - @photos.each do |photo|
+    %div{'data-src' => photo.photo.url(:large)}

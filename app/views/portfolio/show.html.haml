@@ -1,0 +1,7 @@
+.photo-pane
+  = link_to @photo.photo.url(:original), :target => '_blank' do
+    = image_tag @photo.photo.url(@size)
+%ul.nav.nav-pills
+  - Photo.styles_with_orig.each do |name|
+    %li{:class => @size.to_s == name.to_s ? 'active' : ''}
+      = link_to name.to_s.titlecase, photo_path(@photo, :size => name)

@@ -1,0 +1,36 @@
+= form_for @photo, :url => photos_path, :html => {:multipart => true, :id => 'fileupload'} do |f|
+  .row.fileupload-buttonbar
+    .col-md-6
+      %span.btn.btn-success.fileinput-button
+        %span.glyphicon.glyphicon-plus
+        %span Add files
+        = f.file_field :photo_list, :multiple => true
+  
+      %button.btn.btn-info.start{:type => 'submit'}
+        %span.glyphicon.glyphicon-ok
+        %span Start upload
+    
+      %button.btn.btn-warning.cancel{:type => 'reset'}
+        %span.glyphicon.glyphicon-remove
+        %span Cancel upload
+      
+      %button.btn.btn-danger.delete{:type => 'button'}
+        %span.glyphicon.glyphicon-trash
+        %span Delete
+        
+      %input.toggle{:type => 'checkbox'}
+      .fileupload-process
+
+    .col-md-6.fileupload-progress.fade{:style => 'padding-top:6px; padding-bottom:6px;'}
+      .progress.progress-striped.active
+        .progress-bar.progress-bar-success
+        .progress-extended
+  
+  .fileupload-loading
+  
+  %table.table.table-striped
+    %tbody.files{'data-toggle' => 'modal-gallery', 'data-target' => '#modal-gallery'}
+
+- content_for :javascripts do   
+  = render 'jquery_upload_templates'
+  = javascript_include_tag 'jquery_file_upload/application'

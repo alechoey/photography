@@ -1,0 +1,5 @@
+.photo-grid
+  - photos.each_slice(4) do |photo_row|
+    .row.photo-grid-row
+      - photo_row.each do |photo|
+        .col-sm-3= render 'admin/photos/photo', :photo => photo

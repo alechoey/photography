@@ -1,0 +1,13 @@
+.container
+  #brand-unit
+    =link_to root_path, :id => 'brand' do
+      %h1 Alec Hoey Photography
+      
+    #header-links-wrapper
+      %ul#header-links.nav.nav-justified
+        %li= link_to 'Portfolio', portfolio_path
+        %li= link_to 'Blog', posts_path
+        %li= link_to 'Sets', photo_sets_path
+        %li= link_to 'Contact', contact_path
+        - if user_signed_in?
+          %li= link_to 'Log out', destroy_user_session_path, :method => :delete

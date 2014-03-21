@@ -1,0 +1,6 @@
+- unless @errors.blank?
+  .alert.alert-danger
+    %strong The following errors prevented the record from being saved:
+    %ul
+      - @errors.each do |msg|
+        %li= msg

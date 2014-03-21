@@ -1,0 +1,191 @@
+@import "twitter/bootstrap/bootstrap";
+
+// Set the correct sprite paths
+@iconSpritePath: image-url("twitter/bootstrap/glyphicons-halflings.png");
+@iconWhiteSpritePath: image-url("twitter/bootstrap/glyphicons-halflings-white.png");
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+@fontAwesomeEotPath: asset-url("fontawesome-webfont.eot");
+@fontAwesomeEotPath_iefix: asset-url("fontawesome-webfont.eot?#iefix");
+@fontAwesomeWoffPath: asset-url("fontawesome-webfont.woff");
+@fontAwesomeTtfPath: asset-url("fontawesome-webfont.ttf");
+@fontAwesomeSvgPath: asset-url("fontawesome-webfont.svg#fontawesomeregular");
+
+// Font Awesome
+@import "fontawesome/font-awesome";
+
+// Glyphicons
+//@import "twitter/bootstrap/sprites.less";
+
+// Your custom LESS stylesheets goes here
+//
+// Since bootstrap was imported above you have access to its mixins which
+// you may use and inherit here
+//
+// If you'd like to override bootstrap's own variables, you can do so here as well
+// See http://twitter.github.com/bootstrap/customize.html#variables for their names and documentation
+//
+// Example:
+// @linkColor: #ff0000;
+
+@brand-primary: #c1273d;
+
+@font-face {
+  font-family: 'Akashi';
+  src: font-url('Akashi.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: font-url('BebasNeue.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@headings-font-family: 'Bebas Neue';
+
+label {
+  font-family: @headings-font-family;
+  font-size: 18px;
+  margin-top: 5px;
+  margin-bottom: 3px;
+}
+
+.checkbox label {
+  font-size: @font-size-base;
+}
+
+#brand-unit {
+  .page-header();
+  padding-bottom: 0;
+}
+
+a#brand > h1 {
+  color: @text-color;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: normal;
+  text-align: center;
+}
+
+a#brand:hover {
+  text-decoration: none;
+}
+
+@header-links-padding: 10%;
+
+#header-links-wrapper {
+  padding-left: @header-links-padding;
+  padding-right: @header-links-padding;
+}
+
+#header-links > li a {
+  font-family: 'Bebas Neue';
+  font-size: 24px;
+}
+
+#header-links > li a:hover {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+@devise-links-margin: 30px;
+
+ul.devise-links {
+  .nav();
+  margin-bottom: @padding-large-vertical;
+  margin-left: -@devise-links-margin;
+}
+
+ul.devise-links > li {
+  display: inline-block;
+  float: left;
+  margin-left: @devise-links-margin;
+}
+
+ul.devise-links > li > a {
+  padding: @padding-base-vertical 0;
+}
+
+ul.devise-links > li > a:hover {
+  background-color: transparent;
+}
+
+a.photo_link:hover {
+  text-decoration: none;
+}
+
+.photo-grid .photo-grid-row .photo {
+  display: inline-block;
+  margin-bottom: @grid-gutter-width;
+}
+
+.photo-grid .photo-grid-row .photo img {
+  max-width: 100%;
+}
+
+@photo-grid-btn-right-padding: 15px;
+@photo-grid-btn-bottom-padding: 30px;
+
+.photo-grid .photo-grid-row .photo .btn {
+  background-color: transparent;
+}
+
+.photo-grid .photo-grid-row .photo-remove-btn {
+  color: @gray-darker;
+  position: absolute;
+  right: @photo-grid-btn-right-padding;
+  top: 0px;
+}
+
+.photo-grid .photo-grid-row .photo-remove-btn:hover,
+.photo-grid .photo-grid-row .photo-portfolio-btn:hover {
+  color: @gray-light;
+}
+
+.photo-grid .photo-grid-row .photo-portfolio-btn {
+  color: @gray-darker;
+  position: absolute;
+  left: @photo-grid-btn-right-padding;
+  bottom: @photo-grid-btn-bottom-padding;
+}
+
+.photo-grid .photo-grid-row .photo-cover-btn {
+  color: @brand-warning;
+  position: absolute;
+  right: @photo-grid-btn-right-padding;
+  bottom: @photo-grid-btn-bottom-padding;
+}
+
+.photo-grid .photo-grid-row .photo-cover-btn:hover {
+  color: darken(@brand-warning, 15%);
+}
+
+.photo-pane {
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.photo-pane img {
+  max-width: 100%;
+}
+
+.post > .post-title {
+  color: @brand-primary;
+}
+
+.post > .post-title > a:hover {
+  text-decoration: none;
+}
+
+.contact-section {
+  margin-bottom: 30px;
+}
+
+#footer {
+  padding-top: @padding-large-vertical;
+  padding-bottom: @padding-large-vertical;
+  margin-top: 30px;
+}

@@ -1,0 +1,17 @@
+.photo{:id => "photo-#{photo.id}"}
+  = link_to photo_path(photo) do
+    = image_tag photo.photo.url(:thumb)
+
+  - if user_signed_in?
+    = form_tag admin_photo_path(photo), :method => :delete, :remote => true do
+      = hidden_field_tag :page, params[:page]
+      = button_tag :class => 'btn photo-remove-btn', :type => 'submit', :data => {:confirm => 'Are you sure you want to delete this photo?'} do
+        %span.glyphicon.glyphicon-remove
+    = form_tag admin_photo_path(photo), :method => :put, :remote => true do
+      = hidden_field_tag :portfolio_photo, !photo.portfolio_photo
+      = button_tag :class => 'btn photo-portfolio-btn', :type => 'submit' do
+        %span.glyphicon{:class => "glyphicon-eye-#{photo.portfolio_photo? ? 'open' : 'close'}"}
+    = form_tag admin_photo_path(photo), :method => :put, :remote => true do
+      = hidden_field_tag :cover_photo, !photo.cover_photo
+      = button_tag :class => 'btn photo-cover-btn', :type => 'submit' do
+        %span.glyphicon{:class => "glyphicon-star#{photo.cover_photo? ? '' : '-empty'}"}

@@ -1,0 +1,16 @@
+.posts-wrapper
+  - if @posts.blank?
+    %p
+      There are no posts at this time.
+      - if user_signed_in?
+        = link_to 'Create one.', new_admin_post_path
+  = render :partial => 'posts/post', :collection => @posts
+
+%ul.pager
+  %li.previous
+    = link_to_previous_page @posts, 'Older posts'
+  %li.next
+    = link_to_next_page @posts, 'Newer posts'
+
+- if user_signed_in?
+  %p= link_to 'Create a post', admin_new_post_path, :class => 'btn btn-primary'

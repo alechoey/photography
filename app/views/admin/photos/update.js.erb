@@ -1,0 +1,2 @@
+<%= render 'flashes' %>
+$('#photo-<%= @photo.id %>').replaceWith('<%= escape_javascript(raw(render "photo", :photo => @photo)) %>');

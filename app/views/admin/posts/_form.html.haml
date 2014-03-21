@@ -1,0 +1,27 @@
+= form_for @post, :url => (@post.new_record? ? admin_posts_path : admin_post_path(@post)) do |f|
+  = render 'form_errors'
+        
+  .form-group
+    = f.label :title
+    = f.text_field :title, :class => 'form-control'
+  
+  .form-group
+    = f.label :slug
+    = f.text_field :slug, :class => 'form-control'
+  
+  .form-group
+    = f.label :body_before_break
+    = f.text_area :body_before_break, :class => 'form-control'
+    
+  .form-group
+    = f.label :body_after_break
+    = f.text_area :body_after_break, :class => 'form-control'
+    
+  .form-group
+    %h4 Make publicly visible
+    .checkbox
+      = f.label :public do
+        = f.check_box :public
+        Published
+  
+  .form-group= f.submit (@post.new_record? ? 'Create post' : 'Update post'), :class => 'btn btn-primary'

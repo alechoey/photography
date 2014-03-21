@@ -1,0 +1,11 @@
+%h2 Resend unlock instructions
+= form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f|
+  = devise_error_messages!
+  %div
+    = f.label :email
+    = f.email_field :email, :autofocus => true
+  %div= f.submit "Resend unlock instructions"
+= render "devise/shared/links"
+- if devise_mapping.omniauthable?
+  - resource_class.omniauth_providers.each do |provider|
+    = link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider)

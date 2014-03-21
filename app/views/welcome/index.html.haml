@@ -1,0 +1,21 @@
+.visible-lg
+  .box_skitter.box_skitter_large
+    %ul
+      - @photos.each do |photo|
+        %li= image_tag photo.photo.url(:large)
+  
+.visible-md
+  .box_skitter.box_skitter_medium
+    %ul
+      - @photos.each do |photo|
+        %li= image_tag photo.photo.url(:medium)
+
+.visible-sm
+  .box_skitter.box_skitter_small
+    %ul
+      - @photos.each do |photo|
+        %li= image_tag photo.photo.url(:small)
+        
+.visible-xs
+  - @photos.each do |photo|
+    %p= image_tag photo.photo.url(:medium), :class => 'img-responsive'

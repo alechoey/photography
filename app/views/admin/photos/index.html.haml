@@ -1,0 +1,11 @@
+%h1 All Photos
+
+%p= paginate @photos
+
+- if @photos.blank?
+  %p There are no photos at this time.
+  
+= render 'photo_grid', :photos => @photos
+  
+%p
+  = link_to 'Upload photos', new_admin_photo_path, :class => 'btn btn-primary'

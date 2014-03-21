@@ -1,0 +1,9 @@
+//= require ./jquery.ui.widget
+//= require ./tmpl.min
+//= require ./load-image.min
+//= require ./jquery.iframe-transport
+//= require ./jquery.fileupload
+//= require ./jquery.fileupload-process
+//= require ./jquery.fileupload-image
+//= require ./jquery.fileupload-ui
+//= require ./main

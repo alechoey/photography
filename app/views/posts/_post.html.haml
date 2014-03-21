@@ -1,0 +1,11 @@
+.post
+  %h2.post-title
+    = link_to post.title, post_path(post)
+    
+  %h4= post.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%A, %B %e, %Y')
+  - if user_signed_in?
+    %h4
+      %span.label{:class => post.public? ? 'label-success' : 'label-warning'}
+        = post.public? ? 'Public' : 'Draft'
+  
+  %p= raw post.body_before_break

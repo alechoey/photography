@@ -1,0 +1,12 @@
+.post
+  %h2.post-title= @post.title
+  %h4= @post.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%A, %B %e, %Y')
+  
+  %p= raw @post.body_before_break
+  
+  %p= raw @post.body_after_break
+  
+- if user_signed_in?
+  .btn-group
+    = link_to 'Edit post', admin_edit_post_path(@post), :class => 'btn btn-default'
+    = link_to 'Delete post', admin_post_path(@post), :method => :delete, :data => {:confirm => 'Are you sure you want to delete this post?'}, :class => 'btn btn-danger'
