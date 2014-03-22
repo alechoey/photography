@@ -3,7 +3,7 @@
     %p
       There are no posts at this time.
       - if user_signed_in?
-        = link_to 'Create one.', new_admin_post_path
+        = link_to 'Create one.', admin_new_post_path
   = render :partial => 'posts/post', :collection => @posts
 
 %ul.pager
