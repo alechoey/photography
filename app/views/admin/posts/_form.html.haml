@@ -1,27 +1,54 @@
-= form_for @post, :url => (@post.new_record? ? admin_posts_path : admin_post_path(@post)) do |f|
-  = render 'form_errors'
+.row
+  .col-lg-6.col-xs-12
+    = form_for @post, :url => (@post.new_record? ? admin_posts_path : admin_post_path(@post)) do |f|
+      = render 'form_errors'
         
-  .form-group
-    = f.label :title
-    = f.text_field :title, :class => 'form-control'
+      .form-group
+        = f.label :title
+        = f.text_field :title, :class => 'form-control'
   
-  .form-group
-    = f.label :slug
-    = f.text_field :slug, :class => 'form-control'
+      .form-group
+        = f.label :slug
+        = f.text_field :slug, :class => 'form-control'
   
-  .form-group
-    = f.label :body_before_break
-    = f.text_area :body_before_break, :class => 'form-control'
+      .form-group
+        = f.label :body_before_break
+        = f.text_area :body_before_break, :class => 'form-control', :rows => 15
     
-  .form-group
-    = f.label :body_after_break
-    = f.text_area :body_after_break, :class => 'form-control'
+      .form-group
+        = f.label :body_after_break
+        = f.text_area :body_after_break, :class => 'form-control', :rows => 15
     
-  .form-group
-    %h4 Make publicly visible
-    .checkbox
-      = f.label :public do
-        = f.check_box :public
-        Published
+      .form-group
+        %h4 Make publicly visible
+        .checkbox
+          = f.label :public do
+            = f.check_box :public
+            Published
   
-  .form-group= f.submit (@post.new_record? ? 'Create post' : 'Update post'), :class => 'btn btn-primary'
+      .form-group= f.submit (@post.new_record? ? 'Create post' : 'Update post'), :class => 'btn btn-primary'
+      
+  .col-lg-6.visible-lg
+    .post-preview.post= render 'posts/full_post', :post => @post
+    
+- content_for :javascripts do
+  :javascript
+    var ready = function() {
+      $('form input[type="text"], form textarea').change(function() {
+        var fields = {};
+        $.each($(this).serializeArray(), function(i,o) {
+          var n = o.name, v = o.value;
+          fields[n] = v
+        });
+        
+        $.ajax({
+          url: "#{@post.new_record? ? admin_posts_path : admin_post_path(@post)}",
+          data: fields,
+          dataType: "script",
+          type: "#{@post.new_record? ? 'POST' : 'PUT'}",
+        });
+      });
+    };
+    
+    $(document).ready(ready);
+    $(document).on('page:load', ready);

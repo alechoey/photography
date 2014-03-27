@@ -1,0 +1,6 @@
+%h2.post-title= @post.title
+%h4= (@post.created_at || DateTime.now).in_time_zone("Pacific Time (US & Canada)").strftime('%A, %B %e, %Y')
+
+%p= raw @post.body_before_break
+
+%p= raw @post.body_after_break

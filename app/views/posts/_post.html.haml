@@ -9,3 +9,5 @@
         = post.public? ? 'Public' : 'Draft'
   
   %p= raw post.body_before_break
+  
+  %h4= link_to 'Read more', post_path(post) unless post.body_after_break.blank?

@@ -6,13 +6,16 @@ class Admin::PostsController < Admin::ApplicationController
   def create
     @post = Post.new(post_params)
     respond_to do |format|
-      if @post.save
-        flash[:success] = 'Post was successfully created'
-        format.html { redirect_to posts_path}
-      else
-        @errors = @post.errors.full_messages
-        format.html { render 'new' }
-      end
+      format.js { render 'create_or_update' and return }
+      format.html {
+        if @post.save
+          flash[:success] = 'Post was successfully created'
+          redirect_to posts_path
+        else
+          @errors = @post.errors.full_messages
+          render 'new'
+        end
+      }
     end
   end
   
@@ -23,13 +26,23 @@ class Admin::PostsController < Admin::ApplicationController
   def update
     @post = Post.find_by_slug!(params[:slug])
     respond_to do |format|
-      if @post.update_attributes(post_params)
-        flash[:success] = 'Post was successfully updated'
-        format.html { redirect_to post_path(@post) }
-      else
-        @errors = @post.errors.full_messages
-        format.html { render 'edit' }
-      end
+      format.js {
+        @post.assign_attributes(post_params)
+        if @post.valid?
+          render 'create_or_update' and return
+        else
+          render :nothing => true and return
+        end
+      }
+      format.html {
+        if @post.update_attributes(post_params)
+          flash[:success] = 'Post was successfully updated'
+          redirect_to post_path(@post)
+        else
+          @errors = @post.errors.full_messages
+          render 'edit'
+        end
+      }
     end
   end
   

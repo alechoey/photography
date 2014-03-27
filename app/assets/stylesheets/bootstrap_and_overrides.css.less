@@ -46,6 +46,8 @@
 
 @headings-font-family: 'Bebas Neue';
 
+img { max-width: 100%; }
+
 label {
   font-family: @headings-font-family;
   font-size: 18px;
@@ -170,6 +172,15 @@ a.photo_link:hover {
 
 .photo-pane img {
   max-width: 100%;
+}
+
+.post {
+  padding-bottom: 15px;
+  border-top: 1px solid @gray-lighter;
+}
+
+.post:first-child {
+  border-top: 0px;
 }
 
 .post > .post-title {

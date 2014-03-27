@@ -1,10 +1,5 @@
 .post
-  %h2.post-title= @post.title
-  %h4= @post.created_at.in_time_zone("Pacific Time (US & Canada)").strftime('%A, %B %e, %Y')
-  
-  %p= raw @post.body_before_break
-  
-  %p= raw @post.body_after_break
+  = render 'full_post', :post => @post
   
 - if user_signed_in?
   .btn-group
