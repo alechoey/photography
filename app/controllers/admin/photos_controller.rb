@@ -1,4 +1,6 @@
 class Admin::PhotosController < Admin::ApplicationController  
+  include PhotoConcern
+  
   def new
     @photo = Photo.new
   end
@@ -45,7 +47,7 @@ class Admin::PhotosController < Admin::ApplicationController
     respond_to do |format|
       format.html { redirect_to photos_path }
       format.js {
-        photos_by_page
+        get_photos_by_page
         render 'destroy'
       }
       format.json { render json: {files: [@photo.to_jq_delete]} }

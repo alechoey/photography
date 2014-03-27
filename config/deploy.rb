@@ -1,5 +1,6 @@
 RAILS_ROOT = '/u/apps/photography/current'
 PID_PATH = '/u/apps/photography/shared/pids/unicorn.pid'
+DELAYED_JOB_WORKERS = 2
 
 set :application, 'photography'
 set :repo_url, 'git@github.com:alechoey/photography.git'
@@ -24,13 +25,20 @@ set :keep_releases, 5
 set :rvm_type, :user                     # Defaults to: :auto
 set :rvm_ruby_version, '2.1.1@global'    # Defaults to: 'default'
 
+SSHKit.config.command_map[:delayed_job] = File.join(RAILS_ROOT, 'bin/delayed_job')
+
 namespace :deploy do
   desc 'Start application'
   task :start do
-    on roles(:app), in: :sequence, wait: 10 do
-      execute("cd #{RAILS_ROOT} && UNICORN_WORKERS=3 bundle exec unicorn_rails \
-      -c #{File.join(RAILS_ROOT, 'config/deploy/assets/unicorn.rb')} \
-      -E production -D")
+    on roles(:app), in: :sequence, wait: 5 do
+      within RAILS_ROOT do
+        with rails_env: 'production', unicorn_workers: 3 do
+          execute :bundle, :exec, "unicorn_rails \
+          -c #{File.join(RAILS_ROOT, 'config/deploy/assets/unicorn.rb')} \
+          -E production -D"
+          execute :delayed_job, '-n', DELAYED_JOB_WORKERS, 'start'
+        end
+      end
     end
   end
   
@@ -39,7 +47,10 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       # Your restart mechanism here, for example:
       # execute :touch, release_path.join('tmp/restart.txt')
-      execute("kill -s USR2 `cat #{PID_PATH}`")
+      with rails_env: 'production' do
+        execute "kill -s USR2 `cat #{PID_PATH}`"
+        execute :delayed_job, '-n', DELAYED_JOB_WORKERS, 'restart'
+      end
     end
   end
 

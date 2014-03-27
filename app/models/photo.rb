@@ -22,7 +22,9 @@ class Photo < ActiveRecord::Base
     :url => ':s3_domain_url',
     :path => ':rails_env/:id/:updated_at/:hash-:filename',
     :hash_secret => ENV['PAPERCLIP_SECRET'] || 'AJSIDKjkjdiSDLfidsjsfs-_12j9293949488f9d00s23jLKLKSDejfoijcndsfpu:Qpqnworgp',
+    :default_url => '/photos/processing/:style.gif',
   )
+  process_in_background :photo
   
   validates_attachment :photo, :presence => true, :content_type => { :content_type => [
     'image/jpg',

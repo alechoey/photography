@@ -1,8 +1,8 @@
 class PortfolioController < ApplicationController
+  include PhotoConcern
+  
   def index
-    @photos = Photo.all
-    @photos = @photos.get_portfolio_photos unless user_signed_in?
-    @photos = @photos.page(params[:page])
+    get_photos_by_page
   end
   
   def show

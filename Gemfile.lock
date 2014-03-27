@@ -70,6 +70,14 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     commonjs (0.2.7)
+    daemons (1.1.9)
+    delayed_job (4.0.0)
+      activesupport (>= 3.0, < 4.1)
+    delayed_job_active_record (4.0.0)
+      activerecord (>= 3.0, < 4.1)
+      delayed_job (>= 3.0, < 4.1)
+    delayed_paperclip (2.7.0)
+      paperclip (>= 3.3)
     devise (3.2.3)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -207,6 +215,9 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   coffee-rails (~> 4.0.0)
+  daemons
+  delayed_job_active_record
+  delayed_paperclip
   devise
   haml
   haml-rails
