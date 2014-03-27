@@ -15,8 +15,6 @@ Photography::Application.routes.draw do
   get '/contact' => 'welcome#contact', :as => :contact
 
   scope :admin do
-    root 'portfolio#index', :as => :admin_root
-    
     devise_for :users,
     :controllers => {
       :sessions => 'admin/sessions'
@@ -25,6 +23,10 @@ Photography::Application.routes.draw do
       :sign_in => 'login',
       :sign_out => 'logout'
     }
+    
+    devise_scope :user do
+      root 'devise/sessions#new', :as => :admin_root
+    end
   end
 
   namespace :admin do
