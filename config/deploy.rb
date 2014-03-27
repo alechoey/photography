@@ -6,6 +6,8 @@ set :application, 'photography'
 set :repo_url, 'git@github.com:alechoey/photography.git'
 set :deploy_to, '/u/apps/photography'
 
+set :rails_env, 'production' #for delayed_job
+
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # set :deploy_to, '/var/www/my_app'
@@ -25,7 +27,7 @@ set :keep_releases, 5
 set :rvm_type, :user                     # Defaults to: :auto
 set :rvm_ruby_version, '2.1.1@global'    # Defaults to: 'default'
 
-SSHKit.config.command_map[:delayed_job] = File.join(RAILS_ROOT, 'bin/delayed_job')
+set :delayed_job_args, "-n 2"
 
 namespace :deploy do
   desc 'Start application'
@@ -36,7 +38,6 @@ namespace :deploy do
           execute :bundle, :exec, "unicorn_rails \
           -c #{File.join(RAILS_ROOT, 'config/deploy/assets/unicorn.rb')} \
           -E production -D"
-          execute :delayed_job, '-n', DELAYED_JOB_WORKERS, 'start'
         end
       end
     end
@@ -49,7 +50,7 @@ namespace :deploy do
       # execute :touch, release_path.join('tmp/restart.txt')
       with rails_env: 'production' do
         execute "kill -s USR2 `cat #{PID_PATH}`"
-        execute :delayed_job, '-n', DELAYED_JOB_WORKERS, 'restart'
+        invoke 'delayed_job:restart'
       end
     end
   end
@@ -64,5 +65,4 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
-
 end
