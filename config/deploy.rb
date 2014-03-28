@@ -17,7 +17,7 @@ set :scm, :git
 # set :log_level, :debug
 # set :pty, true
 
-set :linked_files, %w{config/database.yml config/paperclip/s3_credentials.yml}
+set :linked_files, %w{config/database.yml config/paperclip/s3_credentials.yml config/paperclip/paperclip.secret}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
