@@ -27,8 +27,6 @@ set :keep_releases, 5
 set :rvm_type, :user                     # Defaults to: :auto
 set :rvm_ruby_version, '2.1.1@global'    # Defaults to: 'default'
 
-set :delayed_job_args, "-n 2"
-
 namespace :deploy do
   desc 'Start application'
   task :start do
@@ -50,7 +48,6 @@ namespace :deploy do
       # execute :touch, release_path.join('tmp/restart.txt')
       with rails_env: 'production' do
         execute "kill -s USR2 `cat #{PID_PATH}`"
-        invoke 'delayed_job:restart'
       end
     end
   end
@@ -65,4 +62,5 @@ namespace :deploy do
   end
 
   after :finishing, 'deploy:cleanup'
+  after :restart, 'delayed_job:restart'
 end
