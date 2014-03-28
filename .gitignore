@@ -20,3 +20,6 @@
 
 # Ignore database login credentials
 /config/database.yml
+
+# Keep Google Analytics secret
+/app/views/application/_analytics.html
